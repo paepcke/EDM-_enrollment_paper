@@ -19,7 +19,7 @@
 % ONE 'self-contained' source file.
 %
 % Questions regarding SIGS should be sent to
-% Adrienne Griscti ---> griscti@acm.org
+% Adrienne Griscti ---> griscti@acm.orghttps://www.overleaf.com/7267312825nsgbbwvhhrxchttps://www.overleaf.com/7267312825nsgbbwvhhrxc
 %
 % Questions/suggestions regarding the guidelines, .tex and .cls files, etc. to
 % Gerald Murray ---> murray@hq.acm.org
@@ -42,35 +42,6 @@
 \begin{document}
 
 \title{Latent Variable Models of Enrollment for Course Planning and Understanding}
-%\subtitle{[Extended Abstract]
-%\titlenote{A full version of this paper is available as
-%\textit{Author's Guide to Preparing ACM SIG Proceedings Using
-%\LaTeX$2_\epsilon$\ and BibTeX} at
-%\texttt{www.acm.org/eaddress.htm}}}
-%
-% You need the command \numberofauthors to handle the 'placement
-% and alignment' of the authors beneath the title.
-%
-% For aesthetic reasons, we recommend 'three authors at a time'
-% i.e. three 'name/affiliation blocks' be placed beneath the title.
-%
-% NOTE: You are NOT restricted in how many 'rows' of
-% "name/affiliations" may appear. We just ask that you restrict
-% the number of 'columns' to three.
-%
-% Because of the available 'opening page real-estate'
-% we ask you to refrain from putting more than six authors
-% (two rows with three columns) beneath the article title.
-% More than six makes the first-page appear very cluttered indeed.
-%
-% Use the \alignauthor commands to handle the names
-% and affiliations for an 'aesthetic maximum' of six authors.
-% Add names, affiliations, addresses for
-% the seventh etc. author(s) as the argument for the
-% \additionalauthors command.
-% These 'additional authors' will be output/set for you
-% without further effort on your part as the last section in
-% the body of your article BEFORE References or any Appendices.
 
 \numberofauthors{5} %  in this sample file, there are a *total*
 % of EIGHT authors. SIX appear on the 'first-page' (for formatting
@@ -88,15 +59,20 @@
 % e-mail address with \email.
 %
 \alignauthor Nate Gruver \\
+       \affaddr{Stanford University}\\
        \email{ngruver@cs.stanford.edu}
 \alignauthor Ali Malik \\
+       \affaddr{Stanford University}\\
        \email{malikali@cs.stanford.edu}
-\alignauthor Brahm Capoor
+\alignauthor Brahm Capoor \\
+       \affaddr{Stanford University}\\
        \email{brahm@cs.stanford.edu}
 \and
 \alignauthor Chris Piech\\
+       \affaddr{Stanford University}\\
        \email{piech@cs.stanford.edu}
 \alignauthor Andreas Paepcke \\
+       \affaddr{Stanford University}\\
        \email{paepcke@cs.stanford.edu}
 }
 % There's nothing stopping you putting the seventh, eighth, etc.
@@ -110,7 +86,7 @@
 
 \maketitle
 \begin{abstract}
-
+Administrators and students in post-secondary institutions often make impactful decisions without good quantitative models of student enrollment. Such models would give students more perspective about the space of possible course trajectories and allow administrators to simulate the effects of structural changes. We propose a generative model of course enrollment in the form of a time-dependent hidden Markov model. This model uses a real-valued relaxation of binary course enrollments to tractably model the joint probability over all possible courses. The resulting latent variable model with Gaussian emission probabilities is trained by gradient descent on a log-likelihood objective, and validation is performed by comparison with null models and the distance between sample distributions and hold-outs. Finally, three uses cases for the model are demonstrated using historical enrollments. 
 \end{abstract}
 
 %% A category with the (minimum) three required fields
@@ -131,11 +107,11 @@ To handle these more nuanced tasks, we propose a generative model of course enro
 In this work we focus on three motivating use cases for such a model:
 \begin{enumerate}[noitemsep,topsep=0pt]
 	\item A student prototyping their set of future enrollments based on common paths, i.e. queries of the form
-	$$\text{P}(\text{Course}_i | \text{Course}_{j \neq i})$$ 
+	$$\text{P}(\text{Course}_i \mid \text{Course}_{j \neq i})$$ 
 	\item An advisor wondering if their advisee is on track, i.e. queries of the form
-	$$P(\text{Student's enrollments} | \text{All other student enrollments})$$
+	$$P(\text{Student's enrollments} \mid \text{All other student enrollments})$$
 	\item An administrator wondering about optimal resource allocation, i.e. queries of the form
-	$$P(\text{All future enrollments} | \text{All past enrollments})$$
+	$$P(\text{All future enrollments} \mid \text{All past enrollments})$$
 \end{enumerate}
 
 \subsection{Prior Work}
@@ -317,13 +293,27 @@ plots for CS and Philosophy departments with (x,y) location from t-SNE of course
 
 \subsection{Quantifying Enrollment Likelihood}
 
-labeled log-likelihood histogram with examples of uncommon, common, and most common enrollments
+Another useful application of our generative model is in quantifying enrollment likelihood. By training a model on a fraction of the enrollments and evaluating the likelihood of the held-out enrollments, we can get a sense of how unusual the hold-out enrollments are by comparison. Taking this principle to its extreme, we can train a model for each student on every other student's enrollments, allowing us to model exactly how much each particular student varies from the typical. Figure~\ref{fig:likelihistogram} shows a histogram of the log-likelihood assigned to each undergraduate student in the computer science department using this process. In Figure~\ref{fig:piecharts} we dig into the kinds of students who fall within each region of this histogram. In particular, by examining the classes these students take, we see that the model captures at least two meaningful axes of variance: first, it recognizes that it is rare for students to take a very diverse set of courses spanning many academic subjects, and, second, it captures the spectrum of ambition, from just taking what is required within one's department to enrolling in up to 30 computer science classes. 
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{figures/loglikelihood_hist.png}
+    \caption{\label{fig:likelihistogram} Histogram of log-likelihoods for each student assigned by a model trained on all other students}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.25]{figures/lowpie.png}
+    \includegraphics[scale=0.25]{figures/midpie.png} \\
+    \includegraphics[scale=0.25]{figures/highpie.png}
+    \caption{\label{fig:piecharts} Pie charts representing the difference between enrollment patterns captured by the model}
+\end{figure}
 
 \subsection{Sampling Paths}
 
 Potential high-likelihood paths conditioned on given start and end point. 
 
-\section{Conclusions}
+\section{Discussion}
 
 
 %ACKNOWLEDGMENTS are optional
