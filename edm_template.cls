@@ -40,6 +40,8 @@
 % new paragraphs. This involved major changes to the, then, acmproc-sp.cls  1.0SP
 % file, precipitating a 'new' name: "acm_proc_article-sp.cls" V2.01SP.
 %
+% May 13th 2019: Made update to force letter loading via geometry package.
+
 % ---- End of 'updates' ----
 %
 \def\fileversion{V3.2SP}         % for ACM's tracking purposes
@@ -49,6 +51,12 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+
+% Add Geometry Update for Letter.
+\usepackage[letterpaper,left=4.5pc,right=4.5pc,top=4.5pc,bottom=6pc]{geometry}
+
+
+
 % Need this for accents in Arial/Helvetica
 %\usepackage[T1]{fontenc}  % Gerry March 12, 2007 - causes Type 3 problems (body text)
 %\usepackage{textcomp}
